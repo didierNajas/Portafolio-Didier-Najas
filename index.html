@@ -1,102 +1,546 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio | Didier Najas</title>
-
+    <title>Didier Najas | Desarrollador Full Stack</title>
     <link rel="stylesheet" href="estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    
+<body data-theme="dark">
     <!-- NAV -->
-    <nav class="navbar navbar-dark bg-dark px-4">
-        <span class="navbar-brand">Didier Najas</span>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">
+                <i class="fas fa-code"></i> Didier Najas
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades" data-es="Habilidades" data-en="Skills">Habilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                    <li class="nav-item ms-3">
+                        <div class="nav-controls">
+                            <button id="theme-toggle" class="btn-control" title="Toggle dark/light mode">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <button id="lang-toggle" class="btn-control" title="Toggle language">
+                                <span>ES</span> / <span style="opacity: 0.5;">EN</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="container text-center mt-5">
-        <h1>Desarrollador Full Stack</h1>
-        <p>Construyo soluciones en backend y frontend</p>
-    </section>
-    <!-- PROYECTOS -->
-     <section class="container text-center mt-5">
-        <img src="./portfolio.png" alt="Foto de perfil" class="img-fluid mb-2" style="width: 300px; background: #fff;">
-        <h2>Proyectos</h2>
-        <div class="row text-center g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="card p-3 h-100">
-                    <h5>Task Manager</h5>
-                    <p class="card-text">Una aplicación para gestionar tareas con categorias y estados dinamicos
-                    Rol: Desarrollador frontend
-                    tecnologias: HTML, CSS, JavaScript
-                    Desafio: Manejo de estado y manipulacion del DOM en tiempo real.</p>
-                    <a href="https://github.com/didierNajas/allFulstack/tree/633cf5e4f4d675ae05f3e0c4e5e3e18f1cdd5143/primerosPasosJavaScript/labComponentesHTML" target="_blank">Ver proyecto</a>
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-section">
+        <div class="container h-100 d-flex align-items-center">
+            <div class="row w-100 align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-3 fw-bold mb-4">
+                            <span data-es="Hola, soy" data-en="Hello, I'm">Hola, soy</span> <span class="gradient-text">Didier Najas</span>
+                        </h1>
+                        <h2 class="subtitle mb-4" data-es="Desarrollador Full Stack" data-en="Full Stack Developer">Desarrollador Full Stack</h2>
+                        <p class="lead mb-4 text-muted" data-es="Especializado en crear aplicaciones web modernas, escalables y de alto rendimiento. Transformo ideas en código funcional con tecnologías de vanguardia." data-en="Specialized in creating modern, scalable and high-performance web applications. I transform ideas into functional code with cutting-edge technologies." id="parrafe">
+                            Especializado en crear aplicaciones web modernas, escalables y de alto rendimiento. Transformo ideas en código funcional con tecnologías de vanguardia.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="#proyectos" class="btn btn-gradient me-3" data-es="Ver Proyectos" data-en="View Projects">Ver Proyectos</a>
+                            <a href="#contacto" class="btn btn-outline-light" data-es="Contactarme" data-en="Contact Me">Contactarme</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card p-3 h-100">
-                    <h5>Tienda Online POO con node.js</h5>
-                    <p class="card-text">Sistema backend simulado que gestiona usuarios y productos utilizando programación orientada a objetos en Node.js
-                    Rol: Desarrollador backend
-                    tecnologias: Node.js, JavaScript, POO
-                    Desafio: Implemetancion de herencia, encapsulamiento y organizacion modular del codigo.</p>
-                    <a href="https://github.com/didierNajas/allFulstack/tree/633cf5e4f4d675ae05f3e0c4e5e3e18f1cdd5143/primerosPasosJavaScript/JsParalaWeb/tienda" target="_blank">Ver proyecto</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card p-3 h-100">
-                    <h5>Calculadora basica</h5>
-                    <p class="card-text">Una calculadora simple con operaciones básicas
-                    Rol: Desarrollador frontend
-                    tecnologias: HTML, CSS, JavaScript
-                    Desafio: Implementar la lógica de la calculadora y manejar la entrada del usuario.</p>
-                    <a href="https://github.com/didierNajas/allFulstack/tree/633cf5e4f4d675ae05f3e0c4e5e3e18f1cdd5143/primerosPasosPhyton/funciones" target="_blank">Ver proyecto</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card p-3 h-100">
-                    <h5>Contador interactivo</h5>
-                    <p class="card-text">Un contador simple con funcionalidades de incremento y decremento
-                    Rol: Desarrollador frontend
-                    tecnologias: HTML, CSS, JavaScript
-                    Desafio: Manejar eventos del usuario y actualizar dinámicamente la interfaz.</p>
-                    <a href="https://github.com/didierNajas/allFulstack/tree/3a0f9b598f8b72996ca5d4e0371b576f4f4136b7/primerosPasosJavaScript/JsParalaWeb/Incremento" target="_blank">Ver proyecto</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card p-3 h-100">
-                    <h5>Proyecto de Cafe (E-commerce)</h5>
-                    <p class="card-text">Un proyecto de comercio electrónico para una tienda de café, con funcionalidades de carrito de compras y gestión de productos aun en proceso de desarrollo.
-                    tecnologias: HTML, CSS, JavaScript, Node.js
-                    Rol: Desarrollador full stack</p>
-                    <a href="https://github.com/andresdiazf/e_commerce_historias_de_cafe.git" target="_blank">Ver proyecto</a>
+                <div class="col-lg-6 text-center">
+                    <div class="profile-container">
+                        <img src="/Didier Najas photo.jfif" alt="Didier Najas" class="profile-image">
+                        <div class="floating-icons">
+                            <span class="icon-float"><i class="fab fa-Java"></i></span>
+                            <span class="icon-float"><i class="fab fa-node-js"></i></span>
+                            <span class="icon-float"><i class="fab fa-react"></i></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-     </section>
+    </section>
 
-    <!-- ABOUT -->
-     <Section class="container mt-5">
-        <h2>Acerca de mí</h2>
-        <p>Soy estudiante de análisis y desarrollo de software, con certificado en desarrollo Full Stack y me apasiona crear aplicaciones funcionales y aprender nuevas tecnologias constantemente.</p>
-     </Section>
+    <!-- ESTADÍSTICAS SECTION -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-value="30 - 50">0</div>
+                        <p class="stat-label" data-es="Proyectos Completados" data-en="Completed Projects">Proyectos Completados</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-value="2">0</div>
+                        <p class="stat-label" data-es="Clientes Satisfechos" data-en="Satisfied Clients">Clientes Satisfechos</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-value="3">0</div>
+                        <p class="stat-label" data-es="Años de Experiencia" data-en="Years of Experience">Años de Experiencia</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number" data-value="15">0</div>
+                        <p class="stat-label" data-es="Tecnologías" data-en="Technologies">Tecnologías</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-     <!-- CV -->
-      <section class="container mt-5 mb-5">
-        <h2>Habilidades</h2>
-        <ul>
-            <li>JavaScript</li>
-            <li>Python</li>
-            <li>HTML/CSS</li>
-            <li>Node.js</li>
-            <li>Git y GitHub</li>
-            <li>Java</li>
-            <li>SQL</li>
-            <li>package office</li>
-            <li>Spring Boot</li>
-        </ul>
-      </section>
+    <!-- ABOUT SECTION -->
+    <section id="sobre-mi" class="section-spacing bg-light-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Sobre mí" data-en="About Me">Sobre mí</h2>
+                <div class="header-underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <p class="lead mb-4" data-es="Soy un desarrollador Full Stack apasionado por la tecnología y el aprendizaje continuo. Actualmente estoy cursando Análisis y Desarrollo de Software y poseo un certificado en Desarrollo Full Stack." data-en="I'm a Full Stack developer passionate about technology and continuous learning. I'm currently studying Software Analysis and Development and hold a Full Stack Development certificate.">
+                        Soy un desarrollador Full Stack apasionado por la tecnología y el aprendizaje continuo. Actualmente estoy cursando Análisis y Desarrollo de Software y poseo un certificado en Desarrollo Full Stack.
+                    </p>
+                    <p class="mb-4" data-es="Me especializo en construir soluciones completas que abarcan tanto el backend como el frontend, utilizando las mejores prácticas de desarrollo y patrones de diseño modernos. Mi objetivo es crear aplicaciones que no solo funcionen correctamente, sino que también proporcionen una experiencia de usuario excepcional." data-en="I specialize in building complete solutions that span both backend and frontend, using best development practices and modern design patterns. My goal is to create applications that not only work correctly but also provide an exceptional user experience.">
+                        Me especializo en construir soluciones completas que abarcan tanto el backend como el frontend, utilizando las mejores prácticas de desarrollo y patrones de diseño modernos. Mi objetivo es crear aplicaciones que no solo funcionen correctamente, sino que también proporcionen una experiencia de usuario excepcional.
+                    </p>
+                    <div class="experience-highlights">
+                        <div class="highlight-box">
+                            <i class="fas fa-laptop-code"></i>
+                            <h4 data-es="Frontend" data-en="Frontend">Frontend</h4>
+                            <p data-es="Interfaces modernas y responsivas con HTML, CSS y JavaScript" data-en="Modern and responsive interfaces with HTML, CSS and JavaScript">Interfaces modernas y responsivas con HTML, CSS y JavaScript</p>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-database"></i>
+                            <h4 data-es="Backend" data-en="Backend">Backend</h4>
+                            <p data-es="Servidores robustos con Node.js, Spring Boot y gestión de bases de datos" data-en="Robust servers with Node.js, Spring Boot and database management">Servidores robustos con Node.js, Spring Boot y gestión de bases de datos</p>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-tools"></i>
+                            <h4 data-es="Herramientas" data-en="Tools">Herramientas</h4>
+                            <p data-es="Git, GitHub, NPM, Maven y metodologías ágiles" data-en="Git, GitHub, NPM, Maven and agile methodologies">Git, GitHub, NPM, Maven y metodologías ágiles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABILIDADES SECTION -->
+    <section id="habilidades" class="section-spacing">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Habilidades Técnicas" data-en="Technical Skills">Habilidades Técnicas</h2>
+                <div class="header-underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-category">
+                        <h4 class="mb-3"><i class="fas fa-code"></i> <span data-es="Frontend" data-en="Frontend">Frontend</span></h4>
+                        <div class="skill-list">
+                            <span class="skill-badge">HTML5</span>
+                            <span class="skill-badge">CSS3</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-category">
+                        <h4 class="mb-3"><i class="fas fa-server"></i> <span data-es="Backend" data-en="Backend">Backend</span></h4>
+                        <div class="skill-list">
+                            <span class="skill-badge">Node.js</span>
+                            <span class="skill-badge">JavaScript</span>
+                            <span class="skill-badge">Java</span>
+                            <span class="skill-badge">Spring Boot</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-category">
+                        <h4 class="mb-3"><i class="fas fa-database"></i> <span data-es="BD" data-en="DB">BD</span></h4>
+                        <div class="skill-list">
+                            <span class="skill-badge">SQL</span>
+                            <span class="skill-badge">MySQL</span>
+                            <span class="skill-badge">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="skill-category">
+                        <h4 class="mb-3"><i class="fas fa-tools"></i> <span data-es="Herramientas" data-en="Tools">Herramientas</span></h4>
+                        <div class="skill-list">
+                            <span class="skill-badge">Git</span>
+                            <span class="skill-badge">GitHub</span>
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">NPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYECTOS SECTION -->
+    <section id="proyectos" class="section-spacing bg-light-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Proyectos Destacados" data-en="Featured Projects">Proyectos Destacados</h2>
+                <div class="header-underline"></div>
+            </div>
+            <div class="row g-4">
+                <!-- Proyecto 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card" data-project="1">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h5>Task Manager</h5>
+                        </div>
+                        <p class="project-description" data-es="Aplicación interactiva para gestionar tareas con categorías, estados dinámicos y manipulación en tiempo real del DOM." data-en="Interactive app to manage tasks with categories, dynamic states and real-time DOM manipulation.">Aplicación interactiva para gestionar tareas con categorías, estados dinámicos y manipulación en tiempo real del DOM.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-meta">
+                            <small><i class="fas fa-briefcase"></i> <span data-es="Full Stack" data-en="Full Stack">Full Stack</span></small>
+                        </div>
+                        <button class="btn-project" data-bs-toggle="modal" data-bs-target="#projectModal1">
+                            <i class="fas fa-search"></i> <span data-es="Ver Detalles" data-en="See Details">Ver Detalles</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card" data-project="2">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h5>Tienda Online POO</h5>
+                        </div>
+                        <p class="project-description" data-es="Sistema backend con programación orientada a objetos. Gestiona usuarios y productos con herencia y encapsulamiento." data-en="Backend system with object-oriented programming. Manages users and products with inheritance and encapsulation.">Sistema backend con programación orientada a objetos. Gestiona usuarios y productos con herencia y encapsulamiento.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">POO</span>
+                        </div>
+                        <div class="project-meta">
+                            <small><i class="fas fa-briefcase"></i> <span data-es="Backend" data-en="Backend">Backend</span></small>
+                        </div>
+                        <button class="btn-project" data-bs-toggle="modal" data-bs-target="#projectModal2">
+                            <i class="fas fa-search"></i> <span data-es="Ver Detalles" data-en="See Details">Ver Detalles</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card" data-project="3">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h5><span data-es="Proyecto ABC" data-en="Calculator">Proyecto ABC</span></h5>
+                        </div>
+                        <p class="project-description" data-es="Cartas giratorias de aprendizaje y demostracion, el cual al darle click muestra la informacion detallada." data-en="Interactive learning cards and demonstrations, which display detailed information when clicked.">Cartas giratorias de aprendizaje y demostracion, el cual al darle click muestra la informacion detallada.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-meta">
+                            <small><i class="fas fa-briefcase"></i> <span data-es="Full Stack" data-en="Full Stack">Full Stack</span></small>
+                        </div>
+                        <button class="btn-project" data-bs-toggle="modal" data-bs-target="#projectModal3">
+                            <i class="fas fa-search"></i> <span data-es="Ver Detalles" data-en="See Details">Ver Detalles</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Proyecto 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card" data-project="4">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h5><span data-es="Aplicación Web de Almacenamiento Local" data-en="Local Storage Web Application">Web Application Local Storage</span></h5>
+                        </div>
+                        <p class="project-description" data-es="Aplicación web para gestionar el almacenamiento local en el navegador. Funcionalidades de guardado, edición y eliminación de datos." data-en="Web application for managing local storage in the browser. Features for saving, editing and deleting data.">Aplicación web para gestionar el almacenamiento local en el navegador. Funcionalidades de guardado, edición y eliminación de datos.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <div class="project-meta">
+                            <small><i class="fas fa-briefcase"></i> <span data-es="Full Stack" data-en="Full Stack">Full Stack</span></small>
+                        </div>
+                        <button class="btn-project" data-bs-toggle="modal" data-bs-target="#projectModal4">
+                            <i class="fas fa-search"></i> <span data-es="Ver Detalles" data-en="See Details">Ver Detalles</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Proyecto 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card" data-project="5">
+                        <div class="project-header">
+                            <div class="project-icon">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                            <h5>E-Commerce Café</h5>
+                        </div>
+                        <p class="project-description" data-es="Plataforma de comercio electrónico para tienda de café. Carrito de compras, gestión de productos y funcionalidades avanzadas." data-en="E-commerce platform for a coffee shop. Shopping cart, product management and advanced features.">Plataforma de comercio electrónico para tienda de café. Carrito de compras, gestión de productos y funcionalidades avanzadas.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                        <div class="project-meta">
+                            <small><i class="fas fa-briefcase"></i> <span data-es="Full Stack" data-en="Full Stack">Full Stack</span></small>
+                        </div>
+                        <button class="btn-project" data-bs-toggle="modal" data-bs-target="#projectModal5">
+                            <i class="fas fa-search"></i> <span data-es="Ver Detalles" data-en="See Details">Ver Detalles</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO SECTION -->
+    <section id="contacto" class="section-spacing">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-es="Conectemos" data-en="Let's Connect">Conectemos</h2>
+                <div class="header-underline"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead text-center mb-5" data-es="¿Tienes un proyecto interesante? Me encantaría escuchar sobre él. Completa el formulario o conecta conmigo a través de estas plataformas:" data-en="Have an interesting project? I'd love to hear about it. Fill out the form or connect with me through these platforms:">
+                        ¿Tienes un proyecto interesante? Me encantaría escuchar sobre él. Completa el formulario o conecta conmigo a través de estas plataformas:
+                    </p>
+
+                    <!-- FORMULARIO -->
+                    <form id="contactForm" class="contact-form mb-5">
+                        <div class="mb-3">
+                            <label for="name" class="form-label" data-es="Nombre completo" data-en="Full Name">Nombre completo</label>
+                            <input type="text" class="form-control" id="name" required placeholder="Juan Pérez">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label" data-es="Email" data-en="Email">Email</label>
+                            <input type="email" class="form-control" id="email" required placeholder="tu@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label" data-es="Asunto" data-en="Subject">Asunto</label>
+                            <input type="text" class="form-control" id="subject" required placeholder="My project web...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label" data-es="Mensaje" data-en="Message">Mensaje</label>
+                            <textarea class="form-control" id="message" rows="5" required placeholder="tell about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient w-100" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
+                    </form>
+
+                    <div class="form-divider" data-es="O CONECTA POR REDES SOCIALES" data-en="OR CONNECT VIA SOCIAL NETWORKS">O CONECTA POR REDES SOCIALES</div>
+
+                    <!-- REDES SOCIALES -->
+                    <div class="contact-links">
+                        <a href="https://github.com/didierNajas" target="_blank" class="contact-link">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/didier-alexis-cuan-najas-developer-full-stack/" target="_blank" class="contact-link">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="mailto:tu@email.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+                        <a href="https://twitter.com/didiernajas" target="_blank" class="contact-link">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0" data-es="© 2024 Didier Najas. Todos los derechos reservados." data-en="© 2024 Didier Najas. All rights reserved.">© 2024 Didier Najas. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0"><span data-es="Desarrollado con" data-en="Developed with">Desarrollado con</span> <i class="fas fa-heart text-danger"></i> <span data-es="y pasión" data-en="and passion">y pasión</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALES DE PROYECTOS -->
+    <!-- Modal Proyecto 1: Task Manager -->
+    <div class="modal fade" id="projectModal1" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Task Manager</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 data-es="Descripción" data-en="Description">Descripción</h6>
+                    <p data-es="Aplicación interactiva para gestionar tareas con categorías, estados dinámicos y manipulación en tiempo real del DOM. Una herramienta perfecta para organizar y seguimiento de proyectos." data-en="Interactive app to manage tasks with categories, dynamic states and real-time DOM manipulation. A perfect tool for organizing and tracking projects.">Aplicación interactiva para gestionar tareas con categorías, estados dinámicos y manipulación en tiempo real del DOM. Una herramienta perfecta para organizar y seguimiento de proyectos.</p>
+                    <h6 data-es="Tecnologías" data-en="Technologies">Tecnologías</h6>
+                    <p>HTML5, CSS3, JavaScript Vanilla</p>
+                    <h6 data-es="Rol" data-en="Role">Rol</h6>
+                    <p data-es="Desarrollador Full Stack" data-en="Full Stack Developer">Desarrollador Full Stack</p>
+                    <h6 data-es="Desafíos" data-en="Challenges">Desafíos</h6>
+                    <p data-es="Manejo de estado, manipulación del DOM en tiempo real, validación de formularios y persistencia de datos." data-en="State management, real-time DOM manipulation, form validation and data persistence.">Manejo de estado, manipulación del DOM en tiempo real, validación de formularios y persistencia de datos.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://didiernajas.github.io/taskManager/" target="_blank" class="btn btn-gradient">
+                        <i class="fab fa-github"></i> <span data-es="Ver en GitHub" data-en="View on GitHub">Ver en GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Proyecto 2: Tienda Online -->
+    <div class="modal fade" id="projectModal2" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tienda Online POO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 data-es="Descripción" data-en="Description">Descripción</h6>
+                    <p data-es="Sistema backend completo que utiliza programación orientada a objetos. Gestiona usuarios, productos y órdenes con una arquitectura modular y escalable." data-en="Complete backend system using object-oriented programming. Manages users, products and orders with a modular and scalable architecture.">Sistema backend completo que utiliza programación orientada a objetos. Gestiona usuarios, productos y órdenes con una arquitectura modular y escalable.</p>
+                    <h6 data-es="Tecnologías" data-en="Technologies">Tecnologías</h6>
+                    <p>Node.js, JavaScript, POO, Estructuras de Datos</p>
+                    <h6 data-es="Rol" data-en="Role">Rol</h6>
+                    <p data-es="Desarrollador Backend" data-en="Backend Developer">Desarrollador Backend y Frontend</p>
+                    <h6 data-es="Desafíos" data-en="Challenges">Desafíos</h6>
+                    <p data-es="Implementación de herencia, encapsulamiento, polimorfismo y organización modular del código." data-en="Implementation of inheritance, encapsulation, polymorphism and modular code organization.">Implementación de herencia, encapsulamiento, polimorfismo y organización modular del código.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://github.com/didierNajas/shopOnlyJS.git" target="_blank" class="btn btn-gradient">
+                        <i class="fab fa-github"></i> <span data-es="Ver en GitHub" data-en="View on GitHub">Ver en GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Proyecto 3: Proyecto ABC -->
+    <div class="modal fade" id="projectModal3" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-es="Proyecto ABC" data-en="Project ABC">Proyecto ABC</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 data-es="Descripción" data-en="Description">Descripción</h6>
+                    <p data-es="Cartas giratorias de aprendizaje y demostracion, el cual al darle click muestra la informacion detallada." data-en="Interactive learning cards and demonstrations, which display detailed information when clicked.">Trabajo grupal cartas giratorias de aprendizaje y demostracion, el cual al darle click muestra la informacion detallada.</p>
+                    <h6 data-es="Tecnologías" data-en="Technologies">Tecnologías</h6>
+                    <p>HTML5, CSS3, JavaScript Vanilla</p>
+                    <h6 data-es="Rol" data-en="Role">Rol</h6>
+                    <p data-es="Desarrollador Full Stack" data-en="Full Stack Developer">Desarrollador Full Stack</p>
+                    <h6 data-es="Características" data-en="Features">Características</h6>
+                    <p data-es="Operaciones básicas (+, -, *, /), lógica de cálculo, historial de operaciones, interfaz responsiva." data-en="Basic operations (+, -, *, /), calculation logic, operation history, responsive interface.">Operaciones basicas, rotacion de cartas y breve descripcion.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://didiernajas.github.io/proyectoGrupoABC/" target="_blank" class="btn btn-gradient">
+                        <i class="fab fa-github"></i> <span data-es="Ver en GitHub" data-en="View on GitHub">Ver en GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Proyecto 4: Web Local Storage Api -->
+    <div class="modal fade" id="projectModal4" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-es="Web Local Storage Api" data-en="Interactive Counter">Web Local Storage Api</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 data-es="Descripción" data-en="Description">Descripción</h6>
+                    <p data-es="Busca tu Pokemon favorito agregalo y no lo perderas. Es una pagina en la cual se conecta a una api y puedes guardar tus pokemons en localStorage" data-en="Search for your favorite Pokemon, add it, and never lose it. This is a page that connects to an API and allows you to save your Pokemon in localStorage.">Busca tu Pokemon favorito agregalo y no lo perderas</p>
+                    <h6 data-es="Tecnologías" data-en="Technologies">Tecnologías</h6>
+                    <p>Java</p>
+                    <h6 data-es="Rol" data-en="Role">Rol</h6>
+                    <p data-es="Desarrollador Full Stack" data-en="Full Stack Developer">Desarrollador Full Stack</p>
+                    <h6 data-es="Funcionalidades" data-en="Features">Funcionalidades</h6>
+                    <p data-es="Incremento/Decremento, reinicio de contador, animaciones suaves, almacenamiento local." data-en="Increment/Decrement, counter reset, smooth animations, local storage.">Incremento/Decremento, reinicio de contador, animaciones suaves, almacenamiento local.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://didiernajas.github.io/webLocalStorage/" target="_blank" class="btn btn-gradient">
+                        <i class="fab fa-github"></i> <span data-es="Ver en GitHub" data-en="View on GitHub">Ver en GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Proyecto 5: E-Commerce -->
+    <div class="modal fade" id="projectModal5" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">E-Commerce Historias de Café</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 data-es="Descripción" data-en="Description">Descripción</h6>
+                    <p data-es="Plataforma completa de comercio electrónico para una tienda de café. Incluye catálogo de productos, carrito de compras, gestión de usuarios y procesamiento de órdenes." data-en="Complete e-commerce platform for a coffee shop. Includes product catalog, shopping cart, user management and order processing.">Plataforma completa de comercio electrónico para una tienda de café. Incluye catálogo de productos, carrito de compras, gestión de usuarios y procesamiento de órdenes.</p>
+                    <h6 data-es="Tecnologías" data-en="Technologies">Tecnologías</h6>
+                    <p>HTML5, CSS3, JavaScript, Node.js, Express, MongoDB (en desarrollo)</p>
+                    <h6 data-es="Rol" data-en="Role">Rol</h6>
+                    <p data-es="Desarrollador Full Stack" data-en="Full Stack Developer">Desarrollador Full Stack</p>
+                    <h6 data-es="Estado" data-en="Status">Estado</h6>
+                    <p data-es="En desarrollo - Próximas features: pasarela de pagos, sistema de reseñas, panel de administración." data-en="In development - Upcoming features: payment gateway, review system, admin panel.">En desarrollo - Próximas features: pasarela de pagos, sistema de reseñas, panel de administración.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://github.com/andresdiazf/e_commerce_historias_de_cafe.git" target="_blank" class="btn btn-gradient">
+                        <i class="fab fa-github"></i> <span data-es="Ver en GitHub" data-en="View on GitHub">Ver en GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
