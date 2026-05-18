@@ -10,6 +10,10 @@
     --success-color: #6ee7b7;
     --danger-color: #fb7185;
     --transition: all 0.3s ease;
+    --accent-color: #a855f7;
+    --secondary-color: #2a003f;
+    --accent-light: #e9d5ff;
+    --transition: all 0.3s ease;
 }
 
 /* ==================== ESTILOS GENERALES ==================== */
@@ -235,6 +239,7 @@ h3 {
     border: 4px solid var(--accent-color);
     box-shadow: 0 20px 60px rgba(168, 85, 247, 0.4);
     transition: var(--transition);
+    display: block; /* evita que se trate como inline */
 }
 
 .profile-image:hover {
