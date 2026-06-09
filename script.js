@@ -107,15 +107,18 @@ const animateStats = () => {
 document.addEventListener('DOMContentLoaded', animateStats);
 
 // ==================== VALIDACIÓN DEL FORMULARIO ====================
+// Inicializar EmailJS con tu Public Key
+emailjs.init('imMlDc-9gQwzPoKo0');
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
 
         // Validación básica
         if (!name || !email || !subject || !message) {
@@ -130,16 +133,47 @@ if (contactForm) {
             return;
         }
 
-        // Aquí irían las acciones post-envío
-        showNotification(
-            currentLanguage === 'es' ? 
-            '¡Mensaje enviado exitosamente! Pronto te contactaré.' : 
-            'Message sent successfully! I will contact you soon.',
-            'success'
-        );
+        // Deshabilitar botón mientras envía
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = currentLanguage === 'es' ? 'Enviando...' : 'Sending...';
 
-        // Limpiar formulario
-        contactForm.reset();
+        // Parámetros del template EmailJS
+        const templateParams = {
+            from_name: name,
+            reply_to: email,
+            subject: subject,
+            message: message,
+            to_name: 'Didier Najas',
+            to_email: 'didiernajas2006@gmail.com'
+        };
+
+        // Enviar con EmailJS
+        // Reemplaza 'TU_SERVICE_ID' y 'TU_TEMPLATE_ID' con los tuyos
+        emailjs.send('service_k8a2u6a', 'template_yha4upm', templateParams)
+            .then(() => {
+                showNotification(
+                    currentLanguage === 'es'
+                        ? '¡Mensaje enviado exitosamente! Pronto te contactaré.'
+                        : 'Message sent successfully! I will contact you soon.',
+                    'success'
+                );
+                contactForm.reset();
+            })
+            .catch((error) => {
+                console.error('EmailJS error:', error);
+                showNotification(
+                    currentLanguage === 'es'
+                        ? 'Error al enviar el mensaje. Intenta de nuevo.'
+                        : 'Error sending message. Please try again.',
+                    'error'
+                );
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
     });
 }
 
@@ -187,7 +221,7 @@ const elementObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Animar elementos al scroll
-document.querySelectorAll('.project-card, .skill-category, .highlight-box, .contact-link').forEach(el => {
+document.querySelectorAll('.project-card, .skill-category, .highlight-box, .contact-link, .stat-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'all 0.6s ease';
@@ -300,7 +334,7 @@ document.querySelectorAll('.skill-badge').forEach(badge => {
 });
 
 // ==================== PREVENIR CLICS MÚLTIPLES EN BOTONES ====================
-document.querySelectorAll('.btn-gradient, .btn-outline-light, .btn-project').forEach(btn => {
+document.querySelectorAll('.btn-gradient, .btn-outline-light, .btn-demo').forEach(btn => {
     btn.addEventListener('click', function(e) {
         this.style.pointerEvents = 'none';
         setTimeout(() => {
