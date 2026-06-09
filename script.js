@@ -1,6 +1,15 @@
 // ==================== CONFIGURACIÓN INICIAL ====================
-let currentLanguage = localStorage.getItem('language') || 'es';
-let currentTheme = localStorage.getItem('theme') || 'dark';
+// Guard para localStorage bloqueado por Tracking Prevention (Edge/Firefox)
+function safeStorage(key, fallback) {
+    try { return localStorage.getItem(key) || fallback; }
+    catch (_) { return fallback; }
+}
+function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) { /* silencioso */ }
+}
+
+let currentLanguage = safeStorage('language', 'es');
+let currentTheme    = safeStorage('theme', 'dark');
 
 // Aplicar tema y idioma al cargar
 document.body.setAttribute('data-theme', currentTheme);
@@ -12,7 +21,7 @@ if (languageToggle) {
     languageToggle.addEventListener('click', () => {
         currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
         document.documentElement.setAttribute('data-lang', currentLanguage);
-        localStorage.setItem('language', currentLanguage);
+        safeStorageSet('language', currentLanguage);
         updateLanguage();
         updateToggleButton();
     });
@@ -48,7 +57,7 @@ if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.body.setAttribute('data-theme', currentTheme);
-        localStorage.setItem('theme', currentTheme);
+        safeStorageSet('theme', currentTheme);
         updateThemeIcon();
     });
 }
@@ -305,6 +314,13 @@ window.addEventListener('load', () => {
         }
     });
 });
+
+// Fallback de seguridad: si tras 2s algún elemento sigue oculto, forzarlo visible
+setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        el.classList.add('visible');
+    });
+}, 2000);
 
 console.log('✓ Portafolio cargado correctamente');
 console.log(`✓ Idioma: ${currentLanguage === 'es' ? 'Español' : 'English'}`);
