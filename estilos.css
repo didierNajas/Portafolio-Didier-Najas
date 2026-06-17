@@ -849,50 +849,96 @@ h3 {
 
 /* ==================== MODAL PERSONALIZADO ==================== */
 .modal-content {
-    background: linear-gradient(135deg, rgba(18, 10, 43, 0.97), rgba(45, 212, 191, 0.05));
-    border: 2px solid rgba(45, 212, 191, 0.25);
+    background: linear-gradient(160deg, #12082e 0%, #1a0d38 50%, #0d1a2e 100%);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 18px;
     color: var(--text-light);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(45, 212, 191, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    overflow: hidden;
 }
 
 .modal-header {
-    border-bottom: 2px solid rgba(45, 212, 191, 0.2);
-    padding: 1.5rem;
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.12) 0%, rgba(45, 212, 191, 0.06) 100%);
+    position: relative;
+}
+
+.modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-teal), transparent);
 }
 
 .modal-header .modal-title {
-    color: var(--text-light);
+    color: #ffffff;
     font-weight: 700;
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, #fff 60%, var(--accent-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .modal-header .btn-close {
     filter: invert(1);
-    opacity: 0.7;
+    opacity: 0.6;
     transition: var(--transition);
 }
 
 .modal-header .btn-close:hover {
     opacity: 1;
+    filter: invert(1) drop-shadow(0 0 4px rgba(45, 212, 191, 0.8));
 }
 
 .modal-body {
     padding: 2rem;
+    background: transparent;
 }
 
 .modal-body h6 {
     color: var(--accent-teal);
     font-weight: 700;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-body h6::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: linear-gradient(180deg, var(--accent-teal), var(--accent-color));
+    border-radius: 2px;
+    flex-shrink: 0;
 }
 
 .modal-body p {
-    color: var(--text-muted);
-    margin-bottom: 1rem;
+    color: #d4c8f0;
+    margin-bottom: 0.5rem;
+    line-height: 1.75;
+    font-size: 0.95rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid rgba(168, 85, 247, 0.15);
 }
 
 .modal-footer {
-    border-top: 2px solid rgba(45, 212, 191, 0.2);
-    padding: 1.5rem;
+    border-top: 1px solid rgba(168, 85, 247, 0.2);
+    padding: 1.25rem 2rem;
+    background: linear-gradient(90deg, rgba(45, 212, 191, 0.05) 0%, rgba(168, 85, 247, 0.08) 100%);
 }
 
 /* ==================== TEMA CLARO Y OSCURO ==================== */
@@ -965,9 +1011,39 @@ body[data-theme="light"] .contact-link {
 }
 
 body[data-theme="light"] .modal-content {
-    background: linear-gradient(135deg, #faf5ff, rgba(13, 148, 136, 0.04));
-    border-color: rgba(147, 51, 234, 0.3);
+    background: linear-gradient(160deg, #faf5ff 0%, #ffffff 50%, #f0fdfa 100%);
+    border-color: rgba(147, 51, 234, 0.25);
     color: #1e1b4b;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+body[data-theme="light"] .modal-header {
+    background: linear-gradient(90deg, rgba(147, 51, 234, 0.08) 0%, rgba(13, 148, 136, 0.05) 100%);
+}
+
+body[data-theme="light"] .modal-header::after {
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-teal), transparent);
+}
+
+body[data-theme="light"] .modal-header .modal-title {
+    background: linear-gradient(90deg, #1e1b4b 60%, var(--accent-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body[data-theme="light"] .modal-header .btn-close {
+    filter: none;
+    opacity: 0.5;
+}
+
+body[data-theme="light"] .modal-body p {
+    color: #3b2f6b;
+    border-left-color: rgba(147, 51, 234, 0.2);
+}
+
+body[data-theme="light"] .modal-footer {
+    background: linear-gradient(90deg, rgba(13, 148, 136, 0.05) 0%, rgba(147, 51, 234, 0.06) 100%);
 }
 
 body[data-theme="light"] .footer {
