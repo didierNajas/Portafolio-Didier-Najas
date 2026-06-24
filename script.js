@@ -77,6 +77,8 @@ updateToggleButton();
 updateThemeIcon();
 
 // ==================== ANIMACIÓN DE ESTADÍSTICAS ====================
+// Se inicializa dentro de DOMContentLoaded para garantizar que los
+// elementos .stat-number ya existen en el DOM cuando se observan.
 document.addEventListener('DOMContentLoaded', () => {
     const statNumbers = document.querySelectorAll('.stat-number');
     if (!statNumbers.length) return;
@@ -84,27 +86,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                const target = parseInt(entry.target.getAttribute('data-value')) || 0;
-                let current = 0;
+                const rawValue = entry.target.getAttribute('data-value') || '0';
+                const target   = parseInt(rawValue) || 0;
+                const suffix   = rawValue.includes('+') ? '+' : '';
+                let current    = 0;
                 const increment = target / 60;
 
                 const counter = setInterval(() => {
                     current += increment;
                     if (current >= target) {
-                        entry.target.textContent = target;
+                        entry.target.textContent = target + suffix;
                         entry.target.classList.add('animated');
                         clearInterval(counter);
                     } else {
-                        entry.target.textContent = Math.floor(current);
+                        entry.target.textContent = Math.floor(current) + suffix;
                     }
                 }, 30);
 
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
 
-    statNumbers.forEach(stat => observer.observe(stat));
+    statNumbers.forEach(stat => {
+        // Si ya está en el viewport al cargar, forzar el conteo igualmente
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            stat.dispatchEvent(new Event('forceAnimate'));
+        }
+        observer.observe(stat);
+    });
 });
 
 // ==================== EMAILJS + FORMULARIO ====================
@@ -311,6 +322,28 @@ window.addEventListener('load', () => {
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight) {
             el.classList.add('visible');
+        }
+    });
+
+    // Fallback para contadores: si la sección ya es visible al cargar, animar ahora
+    document.querySelectorAll('.stat-number:not(.animated)').forEach(stat => {
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            const rawValue  = stat.getAttribute('data-value') || '0';
+            const target    = parseInt(rawValue) || 0;
+            const suffix    = rawValue.includes('+') ? '+' : '';
+            let current     = 0;
+            const increment = target / 60;
+            stat.classList.add('animated');
+            const counter = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    stat.textContent = target + suffix;
+                    clearInterval(counter);
+                } else {
+                    stat.textContent = Math.floor(current) + suffix;
+                }
+            }, 30);
         }
     });
 });
