@@ -35,4 +35,4 @@ Librerías: Font Awesome, Google Fonts (Poppins, JetBrains Mono), EmailJS
 El sitio está configurado para servirse desde la raíz del repositorio.
 El archivo index.html es el punto de entrada.
 
-URL: https://didiernajas.github.io/Basic-portafolio/
+URL: https://didiernajas.github.io/Portafolio-Didier-Najas/
