@@ -11,22 +11,11 @@ function safeStorageSet(key, value) {
 let currentLanguage = safeStorage('language', 'es');
 let currentTheme    = safeStorage('theme', 'dark');
 
-// Aplicar tema y idioma al cargar
+// Aplicar tema y idioma al cargar (los elementos body y html están en el HTML inicial)
 document.body.setAttribute('data-theme', currentTheme);
 document.documentElement.setAttribute('data-lang', currentLanguage);
 
 // ==================== CAMBIO DE IDIOMA ====================
-const languageToggle = document.getElementById('lang-toggle');
-if (languageToggle) {
-    languageToggle.addEventListener('click', () => {
-        currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
-        document.documentElement.setAttribute('data-lang', currentLanguage);
-        safeStorageSet('language', currentLanguage);
-        updateLanguage();
-        updateToggleButton();
-    });
-}
-
 function updateLanguage() {
     document.querySelectorAll('[data-es][data-en]').forEach(element => {
         const text = currentLanguage === 'es'
@@ -44,6 +33,7 @@ function updateLanguage() {
 }
 
 function updateToggleButton() {
+    const languageToggle = document.getElementById('lang-toggle');
     if (languageToggle) {
         languageToggle.innerHTML = currentLanguage === 'es'
             ? '<span>ES</span> / <span style="opacity:0.5">EN</span>'
@@ -52,17 +42,8 @@ function updateToggleButton() {
 }
 
 // ==================== CAMBIO DE TEMA ====================
-const themeToggle = document.getElementById('theme-toggle');
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.body.setAttribute('data-theme', currentTheme);
-        safeStorageSet('theme', currentTheme);
-        updateThemeIcon();
-    });
-}
-
 function updateThemeIcon() {
+    const themeToggle = document.getElementById('theme-toggle');
     if (!themeToggle) return;
     const icon = themeToggle.querySelector('i');
     if (currentTheme === 'dark') {
@@ -70,137 +51,6 @@ function updateThemeIcon() {
     } else {
         icon.classList.replace('fa-moon', 'fa-sun');
     }
-}
-
-// Ejecutar en carga
-updateToggleButton();
-updateThemeIcon();
-
-// ==================== ANIMACIÓN DE ESTADÍSTICAS ====================
-// Se inicializa dentro de DOMContentLoaded para garantizar que los
-// elementos .stat-number ya existen en el DOM cuando se observan.
-document.addEventListener('DOMContentLoaded', () => {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    if (!statNumbers.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                const rawValue = entry.target.getAttribute('data-value') || '0';
-                const target   = parseInt(rawValue) || 0;
-                const suffix   = rawValue.includes('+') ? '+' : '';
-                let current    = 0;
-                const increment = target / 60;
-
-                const counter = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        entry.target.textContent = target + suffix;
-                        entry.target.classList.add('animated');
-                        clearInterval(counter);
-                    } else {
-                        entry.target.textContent = Math.floor(current) + suffix;
-                    }
-                }, 30);
-
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    statNumbers.forEach(stat => {
-        // Si ya está en el viewport al cargar, forzar el conteo igualmente
-        const rect = stat.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-            stat.dispatchEvent(new Event('forceAnimate'));
-        }
-        observer.observe(stat);
-    });
-});
-
-// ==================== EMAILJS + FORMULARIO ====================
-// EmailJS se inicializa solo si el script está cargado
-if (typeof emailjs !== 'undefined') {
-    emailjs.init('imMlDc-9gQwzPoKo0');
-}
-
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const name    = document.getElementById('name').value.trim();
-        const email   = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !subject || !message) {
-            showNotification(
-                currentLanguage === 'es' ? 'Por favor completa todos los campos' : 'Please fill all fields',
-                'error'
-            );
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showNotification(
-                currentLanguage === 'es' ? 'Email inválido' : 'Invalid email',
-                'error'
-            );
-            return;
-        }
-
-        const submitBtn  = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = currentLanguage === 'es' ? 'Enviando...' : 'Sending...';
-
-        const templateParams = {
-            from_name : name,
-            reply_to  : email,
-            subject   : subject,
-            message   : message,
-            to_name   : 'Didier Najas',
-            to_email  : 'didiernajas2006@gmail.com'
-        };
-
-        if (typeof emailjs === 'undefined') {
-            showNotification(
-                currentLanguage === 'es'
-                    ? 'Error: servicio de email no disponible.'
-                    : 'Error: email service not available.',
-                'error'
-            );
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            return;
-        }
-
-        emailjs.send('service_k8a2u6a', 'template_yha4upm', templateParams)
-            .then(() => {
-                showNotification(
-                    currentLanguage === 'es'
-                        ? '¡Mensaje enviado! Pronto te contactaré.'
-                        : 'Message sent! I will contact you soon.',
-                    'success'
-                );
-                contactForm.reset();
-            })
-            .catch(err => {
-                console.error('EmailJS error:', err);
-                showNotification(
-                    currentLanguage === 'es'
-                        ? 'Error al enviar. Intenta de nuevo.'
-                        : 'Error sending. Please try again.',
-                    'error'
-                );
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            });
-    });
 }
 
 // ==================== NOTIFICACIONES ====================
@@ -223,138 +73,350 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// ==================== ANIMACIONES DE SCROLL ====================
-// IMPORTANTE: NO se aplica pointer-events:none a las cards para no bloquear
-// los botones y links internos en GitHub Pages.
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.05, rootMargin: '0px' });
+// Función para cargar un componente y devolver una promesa con su texto
+function loadComponent(url) {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`Failed to load ${url}: ${response.status}`);
+            return response.text();
+        });
+}
 
-document.querySelectorAll(
-    '.project-card, .skill-category, .highlight-box, .contact-link, .stat-card'
-).forEach(el => {
-    el.classList.add('reveal');
-    revealObserver.observe(el);
-});
+// Función de inicialización que se ejecuta después de cargar todos los componentes
+function initPage() {
+    // Ahora que los componentes están cargados, podemos configurar los event listeners y otras inicializaciones
 
-// ==================== NAVBAR ACTIVA SEGÚN SCROLL ====================
-window.addEventListener('scroll', () => {
-    let current = '';
-    document.querySelectorAll('section[id]').forEach(section => {
-        if (window.pageYOffset >= section.offsetTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.toggle(
-            'active',
-            link.getAttribute('href') === `#${current}`
-        );
-    });
-});
-
-// ==================== CERRAR NAVBAR EN MÓVIL ====================
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        const navbar = document.querySelector('.navbar-collapse');
-        if (navbar && navbar.classList.contains('show')) {
-            document.querySelector('.navbar-toggler')?.click();
-        }
-    });
-});
-
-// ==================== HOVER EN PROJECT CARDS ====================
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', function () { this.style.zIndex = '10'; });
-    card.addEventListener('mouseleave', function () { this.style.zIndex = '1'; });
-});
-
-// ==================== SMOOTH SCROLL ====================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        // No interceptar links externos
-        if (!href.startsWith('#')) return;
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-        }
-    });
-});
-
-// ==================== ANIMACIONES CSS (inyectadas) ====================
-const style = document.createElement('style');
-style.textContent = `
-    /* Animación de reveal sin bloquear pointer-events */
-    .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
+    // ==================== CAMBIO DE IDIOMA ====================
+    const languageToggle = document.getElementById('lang-toggle');
+    if (languageToggle) {
+        languageToggle.addEventListener('click', () => {
+            currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+            document.documentElement.setAttribute('data-lang', currentLanguage);
+            safeStorageSet('language', currentLanguage);
+            updateLanguage();
+            updateToggleButton();
+        });
     }
 
-    @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to   { transform: translateX(0);     opacity: 1; }
+    // ==================== CAMBIO DE TEMA ====================
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            safeStorageSet('theme', currentTheme);
+            updateThemeIcon();
+        });
     }
-    @keyframes slideOut {
-        from { transform: translateX(0);     opacity: 1; }
-        to   { transform: translateX(400px); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
 
-// ==================== REVEAL AL CARGAR (elementos ya visibles) ====================
-// Forzar reveal de elementos que ya están en el viewport al cargar la página
-window.addEventListener('load', () => {
-    document.querySelectorAll('.reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-            el.classList.add('visible');
-        }
-    });
+    // Ejecutar actualizaciones iniciales de idioma y tema (ahora que los elementos existen)
+    updateLanguage();
+    updateToggleButton();
+    updateThemeIcon();
 
-    // Fallback para contadores: si la sección ya es visible al cargar, animar ahora
-    document.querySelectorAll('.stat-number:not(.animated)').forEach(stat => {
-        const rect = stat.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-            const rawValue  = stat.getAttribute('data-value') || '0';
-            const target    = parseInt(rawValue) || 0;
-            const suffix    = rawValue.includes('+') ? '+' : '';
-            let current     = 0;
-            const increment = target / 60;
-            stat.classList.add('animated');
-            const counter = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    stat.textContent = target + suffix;
-                    clearInterval(counter);
-                } else {
-                    stat.textContent = Math.floor(current) + suffix;
+    // ==================== ANIMACIÓN DE ESTADÍSTICAS ====================
+    document.addEventListener('DOMContentLoaded', () => {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        if (!statNumbers.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    const rawValue = entry.target.getAttribute('data-value') || '0';
+                    const target   = parseInt(rawValue) || 0;
+                    const suffix   = rawValue.includes('+') ? '+' : '';
+                    let current    = 0;
+                    const increment = target / 60;
+
+                    const counter = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target + suffix;
+                            entry.target.classList.add('animated');
+                            clearInterval(counter);
+                        } else {
+                            entry.target.textContent = Math.floor(current) + suffix;
+                        }
+                    }, 30);
+
+                    observer.unobserve(entry.target);
                 }
-            }, 30);
+            });
+        }, { threshold: 0.3 });
+
+        statNumbers.forEach(stat => {
+            // Si ya está en el viewport al cargar, forzar el conteo igualmente
+            const rect = stat.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                stat.dispatchEvent(new Event('forceAnimate'));
+            }
+            observer.observe(stat);
+        });
+    });
+
+    // ==================== EMAILJS + FORMULARIO ====================
+    // EmailJS se inicializa solo si el script está cargado
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init('imMlDc-9gQwzPoKo0');
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name    = document.getElementById('name').value.trim();
+            const email   = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                showNotification(
+                    currentLanguage === 'es' ? 'Por favor completa todos los campos' : 'Please fill all fields',
+                    'error'
+                );
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification(
+                    currentLanguage === 'es' ? 'Email inválido' : 'Invalid email',
+                    'error'
+                );
+                return;
+            }
+
+            const submitBtn  = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = currentLanguage === 'es' ? 'Enviando...' : 'Sending...';
+
+            const templateParams = {
+                from_name : name,
+                reply_to  : email,
+                subject   : subject,
+                message   : message,
+                to_name   : 'Didier Najas',
+                to_email  : 'didiernajas2006@gmail.com'
+            };
+
+            if (typeof emailjs === 'undefined') {
+                showNotification(
+                    currentLanguage === 'es'
+                        ? 'Error: servicio de email no disponible.'
+                        : 'Error: email service not available.',
+                    'error'
+                );
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                return;
+            }
+
+            emailjs.send('service_k8a2u6a', 'template_yha4upm', templateParams)
+                .then(() => {
+                    showNotification(
+                        currentLanguage === 'es'
+                            ? '¡Mensaje enviado! Pronto te contactaré.'
+                            : 'Message sent! I will contact you soon.',
+                        'success'
+                    );
+                    contactForm.reset();
+                })
+                .catch(err => {
+                    console.error('EmailJS error:', err);
+                    showNotification(
+                        currentLanguage === 'es'
+                            ? 'Error al enviar. Intenta de nuevo.'
+                            : 'Error sending. Please try again.',
+                        'error'
+                    );
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                });
+        });
+    }
+
+    // ==================== ANIMACIONES DE SCROLL ====================
+    // IMPORTANTE: NO se aplica pointer-events:none a las cards para no bloquear
+    // los botones y links internos en GitHub Pages.
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05, rootMargin: '0px' });
+
+    document.querySelectorAll(
+        '.project-card, .skill-category, .highlight-box, .contact-link, .stat-card'
+    ).forEach(el => {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+    });
+
+    // ==================== NAVBAR ACTIVA SEGÚN SCROLL ====================
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('section[id]').forEach(section => {
+            if (window.pageYOffset >= section.offsetTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle(
+                'active',
+                link.getAttribute('href') === `#${current}`
+            );
+        });
+    });
+
+    // ==================== CERRAR NAVBAR EN MÓVIL ====================
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const navbar = document.querySelector('.navbar-collapse');
+            if (navbar && navbar.classList.contains('show')) {
+                document.querySelector('.navbar-toggler')?.click();
+            }
+        });
+    });
+
+    // ==================== HOVER EN PROJECT CARDS ====================
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mouseenter', function () { this.style.zIndex = '10'; });
+        card.addEventListener('mouseleave', function () { this.style.zIndex = '1'; });
+    });
+
+    // ==================== SMOOTH SCROLL ====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            // No interceptar links externos
+            if (!href.startsWith('#')) return;
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ==================== ANIMACIONES CSS (inyectadas) ====================
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Animación de reveal sin bloquear pointer-events */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-    });
-});
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-// Fallback de seguridad: si tras 2s algún elemento sigue oculto, forzarlo visible
-setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-        el.classList.add('visible');
-    });
-}, 2000);
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to   { transform: translateX(0);     opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0);     opacity: 1; }
+            to   { transform: translateX(400px); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 
-console.log('✓ Portafolio cargado correctamente');
-console.log(`✓ Idioma: ${currentLanguage === 'es' ? 'Español' : 'English'}`);
-console.log(`✓ Tema: ${currentTheme === 'dark' ? 'Oscuro' : 'Claro'}`);
+    // ==================== REVEAL AL CARGAR (elementos ya visibles) ====================
+    // Forzar reveal de elementos que ya están en el viewport al cargar la página
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.reveal').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('visible');
+            }
+        });
+
+        // Fallback para contadores: si la sección ya es visible al cargar, animar ahora
+        document.querySelectorAll('.stat-number:not(.animated)').forEach(stat => {
+            const rect = stat.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                const rawValue  = stat.getAttribute('data-value') || '0';
+                const target    = parseInt(rawValue) || 0;
+                const suffix    = rawValue.includes('+') ? '+' : '';
+                let current     = 0;
+                const increment = target / 60;
+                stat.classList.add('animated');
+                const counter = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + suffix;
+                        clearInterval(counter);
+                    } else {
+                        stat.textContent = Math.floor(current) + suffix;
+                    }
+                }, 30);
+            }
+        });
+    });
+
+    // Fallback de seguridad: si tras 2s algún elemento sigue oculto, forzarlo visible
+    setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+            el.classList.add('visible');
+        });
+    }, 2000);
+
+
+}
+
+// Cargar componentes y luego inicializar
+(function () {
+    // Esperar a que el DOM esté listo para que los placeholders existan
+    function domReady() {
+        return new Promise((resolve) => {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', resolve);
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    domReady().then(() => {
+        const components = [
+            { id: 'header-component', url: 'components/header.html' },
+            { id: 'hero-component',   url: 'components/hero.html' },
+            { id: 'stats-component',  url: 'components/stats.html' },
+            { id: 'about-component',  url: 'components/about.html' },
+            { id: 'skills-component', url: 'components/skills.html' },
+            { id: 'projects-component', url: 'components/projects.html' },
+            { id: 'contact-component', url: 'components/contact.html' },
+            { id: 'footer-component',  url: 'components/footer.html' },
+            { id: 'modals-component',  url: 'components/modals.html' }
+        ];
+
+        const promises = components.map(({id, url}) =>
+            loadComponent(url).then(html => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = html;
+                } else {
+                    console.error(`Element with id ${id} not found`);
+                }
+            })
+        );
+
+        Promise.all(promises)
+            .then(() => {
+                initPage();
+            })
+            .catch(err => {
+                console.error('Error loading components:', err);
+            });
+    });
+})();

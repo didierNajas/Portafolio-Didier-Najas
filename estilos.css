@@ -32,6 +32,67 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Background animation - floating particles */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(45, 212, 191, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 40% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 70% 40%, rgba(45, 212, 191, 0.1) 0%, transparent 20%);
+    background-repeat: no-repeat;
+    animation: floatBackground 15s ease-in-out infinite;
+    z-index: -2;
+    opacity: 0.7;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(45, 212, 191, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: floatParticles 20s linear infinite;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+@keyframes floatBackground {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+    33% {
+        transform: translateY(-15px) rotate(2deg);
+        background-position: 10% 10%, 20% 20%, 15% 15%, 25% 25%;
+    }
+    66% {
+        transform: translateY(10px) rotate(-1deg);
+        background-position: 20% 0%, 30% 30%, 25% 25%, 15% 15%;
+    }
+}
+
+@keyframes floatParticles {
+    0%, 100% {
+        background-position: 0 0, 0 0;
+    }
+    50% {
+        background-position: 100% 100%, 100% 100%;
+    }
 }
 
 p,
@@ -77,94 +138,7 @@ h3 {
     color: var(--text-light) !important;
 }
 
-/* ==================== NAVBAR ==================== */
-.navbar {
-    background: rgba(13, 0, 26, 0.95) !important;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(168, 85, 247, 0.2);
-    padding: 1rem 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: var(--transition);
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-light) !important;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-}
-
-/* Logo de marca personal */
-.brand-logo {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-teal));
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-    transition: var(--transition);
-}
-
-.brand-logo:hover {
-    transform: rotate(5deg) scale(1.05);
-    box-shadow: 0 6px 20px rgba(45, 212, 191, 0.5);
-}
-
-.brand-initials {
-    font-size: 1rem;
-    font-weight: 800;
-    color: white;
-    letter-spacing: 0.05em;
-    font-family: 'JetBrains Mono', monospace;
-}
-
-.brand-name {
-    font-weight: 700;
-    color: var(--text-light);
-    transition: var(--transition);
-}
-
-.navbar-brand:hover .brand-name {
-    color: var(--accent-teal);
-}
-
-.nav-link {
-    color: var(--text-muted) !important;
-    font-weight: 500;
-    position: relative;
-    transition: var(--transition);
-    margin-left: 1.5rem;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--accent-color) !important;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent-color);
-    transition: var(--transition);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
+/* Navbar styles moved to css/header.css */
 
 /* ==================== HERO SECTION ==================== */
 .hero-section {
@@ -308,17 +282,15 @@ h3 {
 }
 
 .icon-float {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 115px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 2.0rem;
     color: var(--text-light);
-    animation: float 3s ease-in-out infinite;
+    animation: float 2s ease-in-out infinite;
 }
 
 .icon-float:nth-child(2) { animation-delay: 0.2s; }
@@ -1047,24 +1019,6 @@ body[data-theme="light"] .modal-footer {
 }
 
 body[data-theme="light"] .footer {
-    background: rgba(255, 255, 255, 0.97);
-    border-top-color: rgba(147, 51, 234, 0.2);
-}
-
-body[data-theme="light"] p,
-body[data-theme="light"] li,
-body[data-theme="light"] .about-text,
-body[data-theme="light"] .project-description,
-body[data-theme="light"] .modal-body p {
-    color: #1e1b4b;
-}
-
-body[data-theme="light"] .brand-name {
-    color: #1e1b4b;
-}
-
-/* ==================== CONTACTO ==================== */
-.footer {
     background: rgba(2, 6, 23, 0.95);
     border-top: 2px solid rgba(56, 189, 248, 0.2);
     padding: 2rem 0;
