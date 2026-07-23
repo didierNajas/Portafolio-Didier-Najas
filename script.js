@@ -388,18 +388,21 @@ function initPage() {
     }
 
     domReady().then(() => {
-        // Get base URL (directory of current script or page)
-        let baseUrl = '';
-        const script = document.currentScript;
-        if (script && script.src) {
-            try {
-                const url = new URL(script.src, window.location.href);
-                baseUrl = url.pathname.substring(0, url.pathname.lastIndexOf('/') + 1);
-            } catch (e) {
+        // Use base URL set in HTML (via <base> tag) or fallback to computed
+        let baseUrl = window.baseUrl || '';
+        if (!baseUrl) {
+            // Fallback: compute base URL from current script or page location
+            const script = document.currentScript;
+            if (script && script.src) {
+                try {
+                    const url = new URL(script.src, window.location.href);
+                    baseUrl = url.pathname.substring(0, url.pathname.lastIndexOf('/') + 1);
+                } catch (e) {
+                    baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                }
+            } else {
                 baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
             }
-        } else {
-            baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
         }
 
         const components = [

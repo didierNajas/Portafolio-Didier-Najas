@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="es" data-lang="es">
 <head>
+    <base id="base" href="/">
+    <script>
+        // Compute base URL: the directory of the current page
+        var baseUrl = window.location.pathname;
+        if (!baseUrl.endsWith('/')) {
+            baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
+        }
+        document.getElementById('base').href = baseUrl;
+        // Expose as a global variable for use in other scripts
+        window.baseUrl = baseUrl;
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Didier Najas | Desarrollador Full Stack</title>
