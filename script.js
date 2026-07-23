@@ -388,16 +388,30 @@ function initPage() {
     }
 
     domReady().then(() => {
+        // Get base URL (directory of current script or page)
+        let baseUrl = '';
+        const script = document.currentScript;
+        if (script && script.src) {
+            try {
+                const url = new URL(script.src, window.location.href);
+                baseUrl = url.pathname.substring(0, url.pathname.lastIndexOf('/') + 1);
+            } catch (e) {
+                baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            }
+        } else {
+            baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+        }
+
         const components = [
-            { id: 'header-component', url: 'components/header.html' },
-            { id: 'hero-component',   url: 'components/hero.html' },
-            { id: 'stats-component',  url: 'components/stats.html' },
-            { id: 'about-component',  url: 'components/about.html' },
-            { id: 'skills-component', url: 'components/skills.html' },
-            { id: 'projects-component', url: 'components/projects.html' },
-            { id: 'contact-component', url: 'components/contact.html' },
-            { id: 'footer-component',  url: 'components/footer.html' },
-            { id: 'modals-component',  url: 'components/modals.html' }
+            { id: 'header-component', url: baseUrl + 'components/header.html' },
+            { id: 'hero-component',   url: baseUrl + 'components/hero.html' },
+            { id: 'stats-component',  url: baseUrl + 'components/stats.html' },
+            { id: 'about-component',  url: baseUrl + 'components/about.html' },
+            { id: 'skills-component', url: baseUrl + 'components/skills.html' },
+            { id: 'projects-component', url: baseUrl + 'components/projects.html' },
+            { id: 'contact-component', url: baseUrl + 'components/contact.html' },
+            { id: 'footer-component',  url: baseUrl + 'components/footer.html' },
+            { id: 'modals-component',  url: baseUrl + 'components/modals.html' }
         ];
 
         const promises = components.map(({id, url}) =>
