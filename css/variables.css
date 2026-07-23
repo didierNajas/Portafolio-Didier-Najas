@@ -1,0 +1,16 @@
+/* ==================== VARIABLES GLOBALES ==================== */
+:root {
+    --primary-color: #120a2b;
+    --secondary-color: #1e0a3c;
+    --accent-color: #a855f7;
+    --accent-dark: #7c3aed;
+    --accent-light: #e9d5ff;
+    --accent-teal: #2dd4bf;       /* Color de contraste nuevo */
+    --accent-teal-dark: #0d9488;
+    --text-light: #f8f4ff;
+    --text-muted: #c4b5fd;
+    --success-color: #6ee7b7;
+    --danger-color: #fb7185;
+    --transition: all 0.3s ease;
+    --card-bg: rgba(30, 10, 60, 0.7);
+}
