@@ -14,3 +14,35 @@
     --transition: all 0.3s ease;
     --card-bg: rgba(30, 10, 60, 0.7);
 }
+
+/* ==================== TEMA OSCURO ==================== */
+[data-theme="dark"] {
+    --primary-color: #120a2b;
+    --secondary-color: #1e0a3c;
+    --accent-color: #a855f7;
+    --accent-dark: #7c3aed;
+    --accent-light: #e9d5ff;
+    --accent-teal: #2dd4bf;
+    --accent-teal-dark: #0d9488;
+    --text-light: #f8f4ff;
+    --text-muted: #c4b5fd;
+    --success-color: #6ee7b7;
+    --danger-color: #fb7185;
+    --card-bg: rgba(30, 10, 60, 0.7);
+}
+
+/* ==================== TEMA CLARO ==================== */
+[data-theme="light"] {
+    --primary-color: #ffffff;
+    --secondary-color: #f8f6ff;
+    --accent-color: #7c3aed;
+    --accent-dark: #6d28d9;
+    --accent-light: #e9d5ff;
+    --accent-teal: #059669;
+    --accent-teal-dark: #047857;
+    --text-light: #120a2b;
+    --text-muted: #3730a3;
+    --success-color: #059669;
+    --danger-color: #dc2626;
+    --card-bg: rgba(255, 255, 255, 0.7);
+}
