@@ -18,6 +18,10 @@ document.documentElement.setAttribute('data-lang', currentLanguage);
 // ==================== CAMBIO DE IDIOMA ====================
 function updateLanguage() {
     document.querySelectorAll('[data-es][data-en]').forEach(element => {
+        // Skip the typing effect element as we handle it separately
+        if (element.id === 'typed-greeting') {
+            return;
+        }
         const text = currentLanguage === 'es'
             ? element.getAttribute('data-es')
             : element.getAttribute('data-en');
@@ -30,6 +34,9 @@ function updateLanguage() {
             if (textNode) textNode.textContent = text;
         }
     });
+    
+    // Re-initialize typing effect when language changes
+    initTypedEffect();
 }
 
 function updateToggleButton() {
@@ -51,6 +58,34 @@ function updateThemeIcon() {
     } else {
         icon.classList.replace('fa-moon', 'fa-sun');
     }
+}
+
+// ==================== EFECTO DE MÁQUINA DE ESCRIBIR ====================
+function initTypedEffect() {
+    const typedElement = document.getElementById('typed-greeting');
+    if (!typedElement) return;
+
+    const text = currentLanguage === 'es'
+        ? typedElement.getAttribute('data-es')
+        : typedElement.getAttribute('data-en');
+
+    // Destroy existing instance if any
+    if (window.typedInstance) {
+        window.typedInstance.destroy();
+    }
+
+    // Initialize Typed.js
+    window.typedInstance = new Typed('#typed-greeting', {
+        strings: [text],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 1500,
+        startDelay: 500,
+        loop: false,
+        showCursor: true,
+        cursorChar: '|',
+        autoInsertCss: true,
+    });
 }
 
 // ==================== NOTIFICACIONES ====================
@@ -113,6 +148,9 @@ function initPage() {
     updateLanguage();
     updateToggleButton();
     updateThemeIcon();
+    
+    // Inicializar efecto de máquina de escribir
+    initTypedEffect();
 
     // ==================== ANIMACIÓN DE ESTADÍSTICAS ====================
     document.addEventListener('DOMContentLoaded', () => {
