@@ -89,7 +89,8 @@
 /* Navbar controls */
 .nav-controls {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .btn-control {
@@ -134,7 +135,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
 }
 
 .btn-control.download:hover {
