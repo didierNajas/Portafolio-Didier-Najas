@@ -318,6 +318,30 @@
     max-width: 280%;
     display: block;
     margin: 0 auto;
+    animation: float 6s ease-in-out infinite, glowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes glowPulse {
+    from {
+        filter: drop-shadow(0 0 10px rgba(236,236,10,0.5));
+    }
+    to {
+        filter: drop-shadow(0 0 20px rgba(236,236,10,0.8));
+    }
+}
+
+.hero-svg:hover * {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
 
 /* Hover effect for profile image */
@@ -347,10 +371,17 @@
     height: 121%;
     object-fit: cover;
     transition: opacity 1s ease;
+    animation: floatPhoto 8s ease-in-out infinite;
+    opacity: 0;
 }
 
-.hero-photo {
-    opacity: 0;
+@keyframes floatPhoto {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.02);
+    }
 }
 
 .profile-image-container:hover .hero-svg {
