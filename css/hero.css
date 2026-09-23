@@ -311,3 +311,53 @@
         font-size: 3rem;
     }
 }
+
+/* Hero SVG responsive */
+.hero-svg {
+    width: 280%;
+    height: auto;
+    max-width: 280%;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Hover effect for profile image */
+.profile-image-container {
+    position: relative;
+    width: 280px; /* Adjust as needed */
+    height: 280px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hero-svg
+{
+    position: absolute;
+    width: 400%;
+    height: 200%;
+    right: -100%;
+    top: -50%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+.hero-photo {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 120%;
+    height: 121%;
+    object-fit: cover;
+    transition: opacity 1s ease;
+}
+
+.hero-photo {
+    opacity: 0;
+}
+
+.profile-image-container:hover .hero-svg {
+    opacity: 1s;
+}
+
+.profile-image-container:hover .hero-photo {
+    opacity: 1;
+}
