@@ -286,10 +286,9 @@
 .icon-float:nth-child(3) { animation-delay: 0.4s; }
 
 @media (max-width: 768px) {
-    .profile-container {
+    .profile-image-container {
         width: 220px;
         height: 220px;
-        margin-bottom: 1.5rem;
     }
 
     .floating-icons {
@@ -355,9 +354,99 @@
 }
 
 .profile-image-container:hover .hero-svg {
-    opacity: 1s;
+    opacity: 1;
 }
 
 .profile-image-container:hover .hero-photo {
     opacity: 1;
+}
+
+/* Responsive adjustments for SVG and photo */
+
+@media (max-width: 1024px) {
+    .profile-image-container {
+        width: 220px;
+        height: 220px;
+    }
+
+    .floating-icons {
+        bottom: -40px;
+    }
+
+    .icon-float {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .hero-section {
+        min-height: 100vh;
+        padding: 0 1rem;
+    }
+
+    .display-3 {
+        font-size: 3rem;
+    }
+    
+    /* Additional mobile adjustments for SVG and photo */
+    .hero-svg {
+        width: 180%;
+        height: auto;
+        max-width: 180%;
+    }
+    
+    .profile-image-container {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .hero-svg {
+        width: 250%;
+        height: 255%;
+        right: -50%;
+        top: -25%;
+    }
+    
+    .hero-photo {
+        top: 30%;
+        width: 115%;
+        height: 125%;
+        left: 3%;
+    }
+}
+
+@media (max-width: 440px) {
+    .profile-image-container {
+        top: 0;
+        width: 250px;
+        height: 250px;
+        transform: translateX(-50%);
+    }
+    
+    .hero-svg {
+        width: 300%;
+        height: auto;
+        max-width: 300%;
+
+    }
+    
+    .profile-image-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .hero-svg {
+        width: 130%;
+        height: 130%;
+        right: -20%;
+        top: -14%;
+        transition: opacity 0s ease;
+    }
+    
+    .hero-photo {
+        top: 5%;
+        width: 80%;
+        height: 88%;
+        left: 15%;
+    }
 }
