@@ -158,7 +158,7 @@ function initPage() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 150, density: { enable: true, value_area: 800 } },
+                number: { value: 200, density: { enable: true, value_area: 800 } },
                 color: { value: '#ecec0a' },
                 shape: { type: 'circle' },
                 opacity: { value: 0.3, random: false },
