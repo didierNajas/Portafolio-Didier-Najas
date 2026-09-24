@@ -503,6 +503,10 @@ function domReady() {
             .then(() => {
                 initModules();
                 initPage();
+                // Initialize project filters after components are loaded
+                if (window.initProjectFilters) {
+                    window.initProjectFilters();
+                }
                 // Initialize stats animation after components are loaded
                 if (window.initStatsAnimation) {
                     window.initStatsAnimation();
