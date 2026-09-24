@@ -170,7 +170,8 @@ function initPage() {
     }
 
     // ==================== ANIMACIÓN DE ESTADÍSTICAS ====================
-    document.addEventListener('DOMContentLoaded', () => {
+    // Run animation initialization directly since components are already loaded
+    const initStatsAnimation = () => {
         const statNumbers = document.querySelectorAll('.stat-number');
         if (!statNumbers.length) return;
 
@@ -194,13 +195,32 @@ function initPage() {
         }, { threshold: 0.3 });
 
         statNumbers.forEach(stat => {
+            // Handle forceAnimate event for elements already in viewport
+            stat.addEventListener('forceAnimate', () => {
+                if (!stat.classList.contains('animated')) {
+                    const rawValue = stat.getAttribute('data-value') || '0';
+                    const target = parseInt(rawValue) || 0;
+                    const suffix = rawValue.includes('+') ? '+' : '';
+                    
+                    stat.classList.add('animated');
+                    
+                    // Animate the counter
+                    if (window.animateCounter) {
+                        window.animateCounter(stat, target, suffix);
+                    }
+                }
+            });
+            
             const rect = stat.getBoundingClientRect();
             if (rect.top < window.innerHeight) {
                 stat.dispatchEvent(new Event('forceAnimate'));
             }
             observer.observe(stat);
         });
-    });
+    };
+
+    // Initialize stats animation
+    initStatsAnimation();
 
     // ==================== EMAILJS + FORMULARIO ====================
     if (typeof emailjs !== 'undefined') {
@@ -483,6 +503,10 @@ function domReady() {
             .then(() => {
                 initModules();
                 initPage();
+                // Initialize stats animation after components are loaded
+                if (window.initStatsAnimation) {
+                    window.initStatsAnimation();
+                }
             })
             .catch(error => {
                 console.error('Error loading components:', error);
